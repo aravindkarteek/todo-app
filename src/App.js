@@ -26,7 +26,7 @@ export default class App extends Component {
 
     const newItem = {
       id: this.state.id,
-      item: this.state.item
+      title: this.state.item
     }
 
     const updatedItems = [...this.state.items, newItem];
@@ -40,6 +40,49 @@ export default class App extends Component {
 
   }
 
+  handleClearList = () => {
+    this.setState({
+      items: []
+    })
+  }
+
+  handleDelete = (id) => {
+    const filteredItems = this.state.items.filter(
+      item => {
+        return (
+          item.id !== id
+        )
+      }
+    )
+
+    this.setState({
+      items: filteredItems
+    })
+  }
+
+  handleEdit = (id) => {
+    const filteredItems = this.state.items.filter(
+      item => {
+        return (
+          item.id !== id
+        )
+      }
+    );
+
+    const selectedItem = this.state.items.find(item => {
+      return (
+        item.id === id
+      )
+    });
+
+    this.setState({
+      items: filteredItems,
+      item: selectedItem.title,
+      editItem: true,
+      id: id
+    });
+  }
+
   render() {
     return (
       <div className="container">
@@ -48,8 +91,12 @@ export default class App extends Component {
             <h3 className="text-capitalize text-center">todo input</h3>
             <TodoInput item={this.state.item}
               handleChange={this.handleChange}
-              handleSubmit={this.handleSubmit} />
-            <TodoList />
+              handleSubmit={this.handleSubmit}
+              editItem = {this.state.editItem} />
+            <TodoList items={this.state.items}
+              clearList={this.handleClearList}
+              handleDelete={this.handleDelete}
+              handleEdit={this.handleEdit} />
           </div>
         </div>
       </div>
