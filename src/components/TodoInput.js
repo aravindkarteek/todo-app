@@ -6,7 +6,7 @@ export default class TodoInput extends Component {
         const { item, handleChange, handleSubmit, editItem } = this.props
 
         return (
-            <div className="card card-body my-3">
+            <div className="card card-body my-2">
                 <form onSubmit={handleSubmit}>
                     <div className="input-group">
                         <div className="input-group-prepend">
